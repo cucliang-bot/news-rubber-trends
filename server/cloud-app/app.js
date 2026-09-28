@@ -60,9 +60,16 @@ async function loadAll() {
   let errors = [];
   // 1. 候选数据（优先 Gist，失败或为空时回退到 jsonbin confirm bin 的 candidates_data）
   try {
-    const cand = unwrap(await fetchJson(CANDIDATES_URL));
-    candidates = cand.data || [];
-    currentDate = (cand.updated_at || '').slice(0, 10);
+    const rawCand = await fetchJson(CANDIDATES_URL);
+    // Gist returns array directly, jsonbin returns {data: [...]}
+    if (Array.isArray(rawCand)) {
+      candidates = rawCand;
+      currentDate = new Date().toISOString().slice(0, 10);
+    } else {
+      const cand = unwrap(rawCand);
+      candidates = cand.data || [];
+      currentDate = (cand.updated_at || '').slice(0, 10);
+    }
   } catch (e) { errors.push('候选数据'); candidates = []; }
   if (!candidates.length) {
     try {
@@ -78,8 +85,13 @@ async function loadAll() {
   }
   // 2. 最终稿数据
   try {
-    const fin = unwrap(await fetchJson(FINAL_URL));
-    finals = fin.data || [];
+    const rawFin = await fetchJson(FINAL_URL);
+    if (Array.isArray(rawFin)) {
+      finals = rawFin;
+    } else {
+      const fin = unwrap(rawFin);
+      finals = fin.data || [];
+    }
   } catch (e) { errors.push('最终稿数据'); finals = []; }
   renderCandidates();
   renderFinals();
