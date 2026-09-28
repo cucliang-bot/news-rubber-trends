@@ -27,6 +27,8 @@ jobs:
           JSONBIN_BIN_CONFIG: 6ab9da2eac6210605afc949a
           JSONBIN_BIN_CONFIRM: 6ab9da2effd5d16053363049
           JSONBIN_BIN_HISTORY: 6ab9da36ffd5d16053363060
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+          GIST_ID: ${{ secrets.GIST_ID }}
           EXCLUDE_SOURCES: erj
 
       - uses: actions/upload-artifact@v4
