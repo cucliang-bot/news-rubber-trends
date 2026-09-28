@@ -22,8 +22,11 @@ jobs:
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           JSONBIN_MASTER_KEY: ${{ secrets.JSONBIN_MASTER_KEY }}
-          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
-          GIST_ID: ${{ secrets.GIST_ID }}
+          JSONBIN_BIN_CANDIDATES: 6ab9da2cac6210605afc9499
+          JSONBIN_BIN_FINAL: 6ab9da2dffd5d16053363048
+          JSONBIN_BIN_CONFIG: 6ab9da2eac6210605afc949a
+          JSONBIN_BIN_CONFIRM: 6ab9da2effd5d16053363049
+          JSONBIN_BIN_HISTORY: 6ab9da36ffd5d16053363060
           EXCLUDE_SOURCES: erj
 
       - uses: actions/upload-artifact@v4

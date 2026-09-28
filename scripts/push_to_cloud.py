@@ -29,7 +29,10 @@ JSONBIN_API_BASE = "https://api.jsonbin.io/v3/b"
 
 
 def _load_config() -> dict:
-    """Load cloud config from file or environment variables."""
+    """Load cloud config from file or environment variables.
+
+    Environment variables always take precedence over file values.
+    """
     config = {}
 
     # Try loading from file
@@ -40,10 +43,23 @@ def _load_config() -> dict:
         except (json.JSONDecodeError, IOError) as e:
             logger.warning("Failed to load cloud config from file: %s", e)
 
-    # Override with environment variables
+    # Environment variables ALWAYS override file values
     master_key = os.environ.get("JSONBIN_MASTER_KEY", "")
     if master_key:
         config.setdefault("jsonbin", {})["master_key"] = master_key
+
+    # Read bin IDs from environment variables (for GitHub Actions)
+    bin_envs = {
+        "JSONBIN_BIN_CANDIDATES": "candidates",
+        "JSONBIN_BIN_FINAL": "final",
+        "JSONBIN_BIN_CONFIG": "config",
+        "JSONBIN_BIN_CONFIRM": "confirm",
+        "JSONBIN_BIN_HISTORY": "history",
+    }
+    for env_var, bin_name in bin_envs.items():
+        bin_id = os.environ.get(env_var, "")
+        if bin_id:
+            config.setdefault("jsonbin", {}).setdefault("bins", {})[bin_name] = bin_id
 
     gist_token = os.environ.get("GIST_TOKEN", "")
     if gist_token:
