@@ -131,7 +131,7 @@ def push_candidates(candidates: list[dict], date_str: str, config: dict | None =
         "date": date_str,
         "updated_at": datetime.now().isoformat(),
         "count": len(candidates),
-        "candidates": candidates,
+        "data": candidates,
     }
 
     return _jsonbin_put(bin_id, payload, master_key)
@@ -159,7 +159,7 @@ def push_final(articles: list[dict], date_str: str, config: dict | None = None) 
         "date": date_str,
         "updated_at": datetime.now().isoformat(),
         "count": len(articles),
-        "articles": articles,
+        "data": articles,
     }
 
     return _jsonbin_put(bin_id, payload, master_key)

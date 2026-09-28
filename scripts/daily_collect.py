@@ -176,7 +176,10 @@ def main():
 
     # Step 1: Fetch from all sources
     logger.info("Step 1: Fetching from all sources...")
-    raw_articles = fetch_all_sources(SOURCES_PATH, days_back=args.days_back)
+    # In GitHub Actions, exclude ERJ (Cloudflare blocks datacenter IPs).
+    # ERJ is handled by local script when computer is on.
+    exclude_sources = os.environ.get("EXCLUDE_SOURCES", "").split(",") if os.environ.get("EXCLUDE_SOURCES") else []
+    raw_articles = fetch_all_sources(SOURCES_PATH, days_back=args.days_back, exclude=exclude_sources)
     if not raw_articles:
         logger.warning("No articles fetched from any source. Exiting.")
         return

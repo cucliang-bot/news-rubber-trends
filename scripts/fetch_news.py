@@ -527,13 +527,14 @@ SOURCE_PARSERS = {
 }
 
 
-def fetch_all_sources(sources_path: str | Path | None = None, days_back: int = 3) -> list[dict]:
+def fetch_all_sources(sources_path: str | Path | None = None, days_back: int = 3, exclude: list[str] | None = None) -> list[dict]:
     """
     Fetch articles from all configured sources.
 
     Args:
         sources_path: Path to sources.json. Defaults to config/sources.json.
         days_back: Only include articles from the last N days.
+        exclude: List of source IDs to skip (e.g., ['erj'] for GitHub Actions).
 
     Returns:
         List of article dicts with keys:
@@ -548,9 +549,13 @@ def fetch_all_sources(sources_path: str | Path | None = None, days_back: int = 3
 
     sources = config.get("trends_sources", [])
     all_articles = []
+    exclude = exclude or []
 
     for src in sources:
         src_id = src["id"]
+        if src_id in exclude:
+            logger.info("Skipping excluded source '%s'", src_id)
+            continue
         parser = SOURCE_PARSERS.get(src_id)
         if parser is None:
             logger.warning("No parser for source '%s', skipping", src_id)

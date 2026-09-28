@@ -24,6 +24,7 @@ jobs:
           JSONBIN_MASTER_KEY: ${{ secrets.JSONBIN_MASTER_KEY }}
           GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
           GIST_ID: ${{ secrets.GIST_ID }}
+          EXCLUDE_SOURCES: erj
 
       - uses: actions/upload-artifact@v4
         if: always()
