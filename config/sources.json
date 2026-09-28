@@ -1,0 +1,78 @@
+{
+  "version": "2.0",
+  "last_updated": "2026-08-06",
+  "trends_sources": [
+    {
+      "id": "tanhei",
+      "name": "炭黑产业网",
+      "base_url": "https://www.tanhei.com",
+      "list_page": "/",
+      "language": "zh",
+      "access_type": "free",
+      "notes": "国内炭黑及橡胶行业资讯网站，中文来源"
+    },
+    {
+      "id": "tireworld",
+      "name": "轮胎世界网",
+      "base_url": "http://www.tireworld.com.cn",
+      "list_page": "/",
+      "language": "zh",
+      "access_type": "free",
+      "notes": "国内轮胎及橡胶行业资讯网站，中文来源"
+    },
+    {
+      "id": "erj",
+      "name": "European Rubber Journal",
+      "base_url": "https://www.european-rubber-journal.com",
+      "list_page": "/section/1/news",
+      "language": "en",
+      "access_type": "soft_paywall",
+      "notes": "软付费墙：全文在HTML源码中，有CSS遮罩层article-overlay。⚠️ Cloudflare保护，curl SSL握手失败，必须用WebFetch工具（非curl）抓取"
+    },
+    {
+      "id": "rubber_world",
+      "name": "Rubber World",
+      "base_url": "https://rubberworld.com",
+      "list_page": "/",
+      "language": "en",
+      "access_type": "free",
+      "notes": "首页即为新闻列表页，可正常抓取"
+    },
+    {
+      "id": "just_auto",
+      "name": "Just-Auto",
+      "base_url": "https://www.just-auto.com",
+      "list_page": "/news/",
+      "language": "en",
+      "access_type": "free",
+      "notes": "汽车行业新闻网站，含橡胶轮胎相关报道"
+    },
+    {
+      "id": "chemanalyst",
+      "name": "Chemanalyst",
+      "base_url": "https://www.chemanalyst.com",
+      "list_page": "/NewsAndDeals/NewsHome",
+      "language": "en",
+      "access_type": "free",
+      "notes": "化工行业新闻与交易动态，含合成橡胶/炭黑等"
+    },
+    {
+      "id": "tyrepress",
+      "name": "Tyrepress",
+      "base_url": "https://www.tyrepress.com",
+      "list_page": "/category/news/",
+      "language": "en",
+      "access_type": "free",
+      "notes": "轮胎行业新闻，/category/news/为新闻分类页"
+    },
+    {
+      "id": "tyre_trends",
+      "name": "Tyre Trends",
+      "base_url": "https://www.tyre-trends.com",
+      "list_page": "/news/",
+      "language": "en",
+      "access_type": "free",
+      "notes": "轮胎行业趋势新闻，/news/为新闻列表页"
+    }
+  ]
+}

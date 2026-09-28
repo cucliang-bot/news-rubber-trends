@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>橡胶行业新闻选题系统</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <h1>橡胶行业新闻选题系统</h1>
+      <div class="sub">Trends 每日选题 / 数据云端自动更新</div>
+    </div>
+    <div class="update-info">
+      <div>数据更新：<span id="updateTime">--</span></div>
+      <button class="btn-refresh" onclick="loadAll()">↻ 刷新数据</button>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab active" data-tab="candidates" onclick="switchTab('candidates')">候选选题 <span class="count" id="candCount" style="display:none">0</span></button>
+    <button class="tab" data-tab="final" onclick="switchTab('final')">最终稿件 <span class="count" id="finalCount" style="display:none">0</span></button>
+  </div>
+</div>
+
+<div class="container">
+  <div id="candidatesTab">
+    <div class="toolbar">
+      <button class="btn btn-primary" onclick="submitConfirm()" style="background:#16a34a;font-weight:600">✓ 确认提交</button>
+      <button class="btn btn-green" onclick="downloadCsv()">下载选中(CSV)</button>
+      <button class="btn btn-secondary" onclick="genConfirm()">生成确认文本</button>
+      <button class="btn btn-secondary" onclick="selectAll(true)">全选</button>
+      <button class="btn btn-secondary" onclick="selectAll(false)">取消全选</button>
+      <select class="source-filter" id="sourceFilter" onchange="renderCandidates()">
+        <option value="all">全部来源</option>
+        <option value="website">新闻网站</option>
+        <option value="wechat">微信公众号</option>
+      </select>
+      <span class="selected-info" id="selectedInfo">已选 0 条</span>
+    </div>
+    <div class="confirm-status" id="confirmStatus" style="display:none;background:#e8f7ee;border:1px solid #b7e4c6;color:#1a7f37;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px;line-height:1.6;"></div>
+    <div id="candidatesList">
+      <div class="loading"><div class="spinner"></div><br>正在加载数据...</div>
+    </div>
+  </div>
+
+  <div id="finalTab" style="display:none">
+    <div class="toolbar">
+      <button class="btn btn-green" onclick="downloadFinalCsv()">下载全部(CSV)</button>
+    </div>
+    <div id="finalList"></div>
+  </div>
+</div>
+
+<div class="footer">橡胶行业新闻选题系统 · 数据由云端自动同步</div>
+
+<div class="modal-mask" id="confirmModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>确认文本（复制后发给选题负责人）</h3>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <textarea id="confirmText" readonly></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal()">关闭</button>
+      <button class="btn btn-primary" onclick="copyConfirm()">复制文本</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

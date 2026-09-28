@@ -1,0 +1,17 @@
+{
+  "storage": "jsonbin",
+  "jsonbin": {
+    "master_key": "YOUR_JSONBIN_MASTER_KEY",
+    "bins": {
+      "candidates": "BIN_ID",
+      "final": "BIN_ID",
+      "config": "BIN_ID",
+      "confirm": "BIN_ID",
+      "history": "BIN_ID"
+    }
+  },
+  "gist": {
+    "token": "YOUR_GIST_TOKEN",
+    "id": "YOUR_GIST_ID"
+  }
+}

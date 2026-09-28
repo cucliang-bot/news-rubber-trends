@@ -1,0 +1,14 @@
+[
+  {
+    "name": "聚胶",
+    "category": "橡胶行业媒体",
+    "keywords": ["橡胶", "轮胎", "材料", "化工", "炭黑"],
+    "enabled": true,
+    "last_check": null,
+    "last_fetch": null,
+    "collector_type": "qq_news_syndication",
+    "search_signature": "\"文章来源:聚胶\" \"主编:Lily\"",
+    "search_site": "so.html5.qq.com",
+    "exclude_keywords": ["聚胶股份", "热熔胶", "回购", "减持", "卫材", "纸尿裤", "上市公告"]
+  }
+]

@@ -1,0 +1,20 @@
+# Secrets
+config/cloud_config.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+
+# Generated data
+data/*/images/
+*.xlsx
+*.tmp
+*.log
+
+# WorkBuddy
+.workbuddy/

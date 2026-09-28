@@ -1,0 +1,32 @@
+name: Weekly Summary
+on:
+  schedule:
+    - cron: '0 6 * * 5'  # 14:00 CST Friday = 06:00 UTC Friday
+  workflow_dispatch:
+
+jobs:
+  weekly:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history needed to access daily data folders
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run weekly summary pipeline
+        run: python scripts/weekly_summary.py
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          JSONBIN_MASTER_KEY: ${{ secrets.JSONBIN_MASTER_KEY }}
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: weekly-summary-${{ github.run_number }}
+          path: data/
