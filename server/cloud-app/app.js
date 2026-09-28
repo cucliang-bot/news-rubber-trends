@@ -1,12 +1,12 @@
 
 // ========== 云端数据地址 ==========
-// 候选/最终稿/确认队列：jsonbin bins
-const CANDIDATES_BIN_ID = '6ab9da2cac6210605afc9499';
-const FINAL_BIN_ID = '6ab9da2dffd5d16053363048';
+// 候选/最终稿：GitHub 公开 Gist（无需密钥，公开可读）
+// 确认队列：jsonbin 公开 bin（匿名读写）
+const GIST_ID = '595766fab0603ba5a8a789212e947432';
+const GIST_USER = 'cucliang-bot';
+const CANDIDATES_URL = `https://gist.githubusercontent.com/${GIST_USER}/${GIST_ID}/raw/candidates.json`;
+const FINAL_URL = `https://gist.githubusercontent.com/${GIST_USER}/${GIST_ID}/raw/final.json`;
 const CONFIRM_BIN_ID = '6ab9da2effd5d16053363049';
-
-const CANDIDATES_URL = `https://api.jsonbin.io/v3/b/${CANDIDATES_BIN_ID}/latest`;
-const FINAL_URL = `https://api.jsonbin.io/v3/b/${FINAL_BIN_ID}/latest`;
 const CONFIRM_READ_URL = `https://api.jsonbin.io/v3/b/${CONFIRM_BIN_ID}/latest`;
 const CONFIRM_WRITE_URL = `https://api.jsonbin.io/v3/b/${CONFIRM_BIN_ID}`;
 

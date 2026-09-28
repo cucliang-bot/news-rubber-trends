@@ -127,15 +127,7 @@ def _jsonbin_get(bin_id: str, master_key: str) -> dict | list | None:
 
 def push_candidates(candidates: list[dict], date_str: str, config: dict | None = None) -> bool:
     """
-    Push candidates to jsonbin candidates bin.
-
-    Args:
-        candidates: List of candidate article dicts
-        date_str: Date string (YYYY-MM-DD)
-        config: Cloud config dict (loaded from file/env if None)
-
-    Returns:
-        True on success
+    Push candidates to jsonbin candidates bin AND GitHub Gist (public readable).
     """
     if config is None:
         config = _load_config()
@@ -150,7 +142,13 @@ def push_candidates(candidates: list[dict], date_str: str, config: dict | None =
         "data": candidates,
     }
 
-    return _jsonbin_put(bin_id, payload, master_key)
+    # Push to jsonbin
+    jsonbin_ok = _jsonbin_put(bin_id, payload, master_key)
+
+    # Also push to Gist (public readable for frontend)
+    gist_ok = push_to_gist(candidates=payload, config=config)
+
+    return jsonbin_ok or gist_ok
 
 
 def push_final(articles: list[dict], date_str: str, config: dict | None = None) -> bool:
@@ -245,17 +243,11 @@ def get_confirm_queue(config: dict | None = None) -> dict | None:
     return _jsonbin_get(bin_id, master_key)
 
 
-def push_to_gist(candidates: list[dict], final: list[dict] | None = None, config: dict | None = None) -> bool:
+def push_to_gist(candidates: list[dict] = None, final: list[dict] = None, config: dict | None = None) -> bool:
     """
-    Push data to GitHub Gist as backup.
-
-    Args:
-        candidates: Current candidates list
-        final: Optional final articles list
-        config: Cloud config dict
-
-    Returns:
-        True on success
+    Push data to GitHub Gist (public readable).
+    
+    This is the PRIMARY storage for frontend display since jsonbin cannot be made public.
     """
     if config is None:
         config = _load_config()
@@ -273,28 +265,12 @@ def push_to_gist(candidates: list[dict], final: list[dict] | None = None, config
 
     if candidates:
         files["candidates.json"] = {
-            "content": json.dumps(
-                {
-                    "date": datetime.now().strftime("%Y-%m-%d"),
-                    "count": len(candidates),
-                    "candidates": candidates,
-                },
-                ensure_ascii=False,
-                indent=2,
-            )
+            "content": json.dumps(candidates, ensure_ascii=False, indent=2)
         }
 
     if final:
         files["final.json"] = {
-            "content": json.dumps(
-                {
-                    "date": datetime.now().strftime("%Y-%m-%d"),
-                    "count": len(final),
-                    "articles": final,
-                },
-                ensure_ascii=False,
-                indent=2,
-            )
+            "content": json.dumps(final, ensure_ascii=False, indent=2)
         }
 
     if not files:
